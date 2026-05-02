@@ -1,5 +1,5 @@
 ; Game Boy Advance 'Bare Metal' 3D Engine Demo by krom (Peter Lemon):
-; Direction Pad Changes Translation X/Y Position
+; Direction Pad Changes X/Y Rotation
 ; L/R Buttons X Rotate
 ; A/B Buttons Y Rotate
 ; Start/Select Buttons Z Rotate
@@ -26,21 +26,33 @@ HALF_SCREEN_X = (SCREEN_X / 2)
 HALF_SCREEN_Y = (SCREEN_Y / 2)
 
 macro Control {
-  imm32 r0,Matrix3D+12 ; Load Matrix Translation Address To R0 (Starts Of X Translation)
-
-  ldr r1,[r0] ; Load X Translation Variable To R1
-  IsKeyDown KEY_LEFT
-  subeq r1,256 ; Translate Screen Left  Using Decrements Of 1.0
-  IsKeyDown KEY_RIGHT
-  addeq r1,256 ; Translate Screen Right Using Increments Of 1.0
-  str r1,[r0],16 ; Store Word To Matrix Parameter Table (Screen X Translation) & Increment Matrix Address To R0 (Start Of Y Translation)
-
-  ldr r1,[r0] ; Load Y Translation Variable To R1
   IsKeyDown KEY_UP
-  subeq r1,256 ; Translate Screen Up,   In Increments Of 1.0
+  imm32eq r0,XRot ; Load X Rotate Address To R0
+  ldreq r1,[r0] ; Load X Rotate Word To R1
+  subeq r1,1
+  andeq r1,255
+  streq r1,[r0] ; Store Word To X Rotate
+
   IsKeyDown KEY_DOWN
-  addeq r1,256 ; Translate Screen Down, In Decrements Of 1.0
-  str r1,[r0],16 ; Store Word To Matrix Parameter Table (Screen Y Translation) & Increment Matrix Address To R0 (Start Of Z Translation)
+  imm32eq r0,XRot ; Load X Rotate Address To R0
+  ldreq r1,[r0] ; Load X Rotate Word To R1
+  addeq r1,1
+  andeq r1,255
+  streq r1,[r0] ; Store Word To X Rotate
+
+  IsKeyDown KEY_LEFT
+  imm32eq r0,YRot ; Load Y Rotate Address To R0
+  ldreq r1,[r0] ; Load Y Rotate Word To R1
+  subeq r1,1
+  andeq r1,255
+  streq r1,[r0] ; Store Word To Y Rotate
+
+  IsKeyDown KEY_RIGHT
+  imm32eq r0,YRot ; Load Y Rotate Address To R0
+  ldreq r1,[r0] ; Load Y Rotate Word To R1
+  addeq r1,1
+  andeq r1,255
+  streq r1,[r0] ; Store Word To Y Rotate
 
   IsKeyDown KEY_A
   imm32eq r0,YRot ; Load Y Rotate Address To R0
