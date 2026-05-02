@@ -1,3 +1,22 @@
+
+Docker build on MAC OS M2:
+
+// Comando para levantar la imagen docker con el archivo Dockerfile de este proyecto
+docker build -t fasmarm-gba .
+
+// Comando para realizar compilacion del codigo asm a gba binario
+docker run --rm \
+  -v "$PWD:/work" \
+  -w /work \
+  fasmarm-gba \
+  HelloWorld/HelloWorld.asm HelloWorld/HelloWorld.gba
+
+// Comando para ejecutar el archivo gba binario en un emulador gba (mGBA)
+open -a mGBA ./HelloWorld/HelloWorld.gba
+
+
+
+========================
 GBA
 ===
 <br />
