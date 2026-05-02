@@ -9,7 +9,9 @@ docker run --rm \
   HelloWorld/HelloWorld.asm HelloWorld/HelloWorld.gba
 
 
-me aparece este error: joseangel@Joses-MacBook-Pro GBA % docker run --rm \
+me aparece este error: 
+
+joseangel@Joses-MacBook-Pro GBA % docker run --rm \
   -v "$PWD:/work" \
   -w /work \
   fasmarm-gba \
