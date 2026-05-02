@@ -36,6 +36,39 @@ docker run --rm \
 open -a mGBA ./3DEngine/3DEngine.gba
 
 
+==========================
+
+Compilar y Ejecutar proyecto/carpeta hysics/2D/Acceleration:
+
+// Comando para realizar compilacion del codigo asm a gba binario
+docker run --rm \
+  --platform linux/amd64 \
+  -v "$PWD:/work" \
+  -w /work \
+  fasmarm-gba \
+  -m 262144 \
+  Physics/2D/Acceleration/Acceleration.asm Physics/2D/Acceleration/Acceleration.gba
+
+// Comando para ejecutar el archivo gba binario en un emulador gba (mGBA)
+open -a mGBA ./Physics/2D/Acceleration/Acceleration.gba
+
+
+// Comando para ejecutar grit para convertir imagen png a graficos gameboy:
+docker run --rm --platform linux/amd64 \
+  -v "$PWD":/work \
+  -w /work/Physics/2D/Acceleration/ConvertGFX \
+  --entrypoint sh \
+  fasmarm-gba \
+  ./ConvertGFX.sh
+
+
+// Comando para ejecutar grit para convertir imagen png a graficos gameboy:
+docker run --rm --platform linux/amd64 \
+  -v "$PWD":/work \
+  -w /work/Physics/2D/Acceleration/ConvertGFX \
+  --entrypoint grit \
+  fasmarm-gba \
+  Car.png -gt -gB8 -ftb -fh!
 
 
 
