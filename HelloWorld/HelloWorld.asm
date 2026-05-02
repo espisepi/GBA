@@ -71,4 +71,4 @@ endcopy: ; End Of Program Copy Code
 ; Static Data (ROM)
 org startcode + (endcopy - IWRAM)
 FONTIMG: file 'Font8x8.img' ; Include BG 4BPP 8x8 Tile Font Character Data (4096 Bytes)
-TEXT: db "Hello, World!"    ; Include BG Map Text Data (13 Bytes)
+TEXT: db "Hello, Cubo!"    ; Include BG Map Text Data (13 Bytes)
